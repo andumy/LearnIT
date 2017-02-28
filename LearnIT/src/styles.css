@@ -1,0 +1,77 @@
+/* You can add global styles to this file, and also import other style files */
+::-webkit-scrollbar {
+      width: 7px;
+} /* this targets the default scrollbar (compulsory) */
+::-webkit-scrollbar-track {
+      background-color: transparent;
+} /* the new scrollbar will have a flat appearance with the set background color */
+ 
+::-webkit-scrollbar-thumb {
+    background-color: #9e3794; 
+    border-radius: 25px;
+} /* this will style the thumb, ignoring the track */
+ 
+::-webkit-scrollbar-button {
+      background-color: transparent;
+
+} 
+ 
+::-webkit-scrollbar-corner {
+      background-color: transparent;
+}
+.body{
+    height: 100%;
+   
+}
+ul{
+    padding:0px;
+    list-style-type: none;
+}
+
+body {
+  background-color:#2a2a2a;
+}
+.container-fluid{
+    padding: 0px 0px;
+    height: 100%;
+}
+.row{
+    margin:0px;
+    height: 100%;
+}
+textarea{
+    resize:none;
+    background-color: transparent;
+}
+textarea:focus{
+    outline: none !important;
+}
+.CodeMirror{
+    background-color: transparent;
+    height: 100%;
+}
+.CodeMirror-cursor {
+    border-left: 1px solid white;
+}
+.CodeMirror-linenumber{
+    color: #575757;
+}
+.CodeMirror-gutters{
+    background-color: transparent;
+    border: none;
+}
+.cm-s-default .cm-meta{
+    color:#05ae66;
+}
+.cm-s-default .cm-def{
+    color:#0fd3ba;
+}
+.cm-s-default .cm-variable-3{
+    color:#0f4bd3
+}
+.cm-s-default{
+    color:#ffffff;
+}
+.cm-s-default .cm-keyword{
+    color:#9e3794;
+}
