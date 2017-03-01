@@ -11,6 +11,7 @@ import { IdeComponent } from './ide/ide.component';
 import { ConsoleComponent } from './console/console.component';
 import { RenderComponent } from './render/render.component';
 import { DescriptionComponent } from './description/description.component';
+import { ArrowsComponent } from './arrows/arrows.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { DescriptionComponent } from './description/description.component';
     IdeComponent,
     ConsoleComponent,
     RenderComponent,
-    DescriptionComponent
+    DescriptionComponent,
+    ArrowsComponent
   ],
   imports: [
     BrowserModule,
