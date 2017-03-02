@@ -11,5 +11,4 @@ export class RenderComponent implements OnInit {
 
   ngOnInit() {
   }
-
 }

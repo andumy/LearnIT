@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input ,OnInit } from '@angular/core';
 import 'codemirror/mode/clike/clike';
 @Component({
   selector: 'ide',
@@ -14,6 +14,7 @@ export class IdeComponent implements OnInit {
             matchBrackets: true
         }; 
     }
+
   ngOnInit() {
   }
    

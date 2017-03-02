@@ -1,7 +1,7 @@
-from django.shortcuts import render
 from django.http import HttpResponse, JsonResponse, HttpRequest
 from django.views.decorators.csrf import csrf_exempt
-import subprocess, json
+from . import services
+import json
 
 
 # Create your views here.
@@ -17,37 +17,56 @@ def run(request: HttpRequest):
     :return: json response for this route
     :rtype: JsonResponse
     """
-    if request.method == 'POST':
-        body_unicode = request.body.decode('utf-8')
-        body = json.loads(body_unicode)
-        code = body['code']
+    if request.method != 'POST':
+        return JsonResponse(
+            {
+                'error': True,
+                'output': 'Internal error: api call method is not POST'
+            }
+        )
 
-        fin = open('main.c', 'w')
-        fin.write(code)
-        fin.close()
+    body_unicode = request.body.decode('utf-8')
+    body = json.loads(body_unicode)
+    code = body.get('code')
+    if code is None:
+        return JsonResponse(
+            {
+                'error': True,
+                'output': 'Internal error: The \'code\' key was not found in request'
+            }
+        )
 
-        compile_process = subprocess.Popen(['gcc', 'main.c', '-Wall'], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-        output, error = compile_process.communicate()
-        compile_process.wait()
+    filename = 'main'
 
-        if error is not None:
+    try:
+        services.write_file(filename, code)
+
+        output_c, error_c = services.compile_file(filename)
+
+        if error_c == b'':
+            output_r, error_r = services.run_exec(filename)
+            if error_r == b'':
+                response = {
+                    'error': False,
+                    'output': output_r.decode('utf-8')
+                }
+            else:
+                response = {
+                    'error': True,
+                    'output': error_r.decode('utf-8')
+                }
+        else:
             response = {
                 'error': True,
-                'output': error.decode("utf-8")
+                'output': error_c.decode("utf-8")
             }
-        else:
-            run_process = subprocess.Popen(['./a.out'], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-            output, error = run_process.communicate()
-            response = {
-                'error': False if error is None else True,
-                'output': output.decode("utf-8")
-            }
-
-        clean_process = subprocess.Popen(['rm', '-rf', 'main.c', 'a.out'])
-    else:
+    except Exception as e:
         response = {
             'error': True,
-            'output': 'GET'
+            'Internal exception': e.__traceback__
         }
+        pass
+
+    services.clean(filename)
 
     return JsonResponse(response)
