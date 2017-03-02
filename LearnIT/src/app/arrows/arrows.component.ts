@@ -11,4 +11,10 @@ export class ArrowsComponent implements OnInit {
 
   ngOnInit() {
   }
+
+  arrowList: Array<string> = [];    
+
+  clicked(direction){      
+    this.arrowList.push(direction);  
+  }
 }
