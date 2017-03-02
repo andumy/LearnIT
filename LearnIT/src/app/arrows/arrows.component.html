@@ -2,15 +2,11 @@
     <div class="row">
         <div class="col-xs-12 full-height">
            <div class="display-arrows">
-               <div *ngFor="let arrow of arrowList">
-                   
                        <div class="row">
-                            <div class="col-sm-1">
-                                <i class="fa fa-arrow-{{arrow}}" aria-hidden="true"></i>
+                            <div id="{{i}}" *ngFor="let arrow of arrowList; let i=index" class="col-sm-1">
+                                <i (click)="destroy(i)" class="fa fa-arrow-{{arrow.dir}}" aria-hidden="true"></i>
                             </div>
                        </div>
-                                       
-               </div>
            </div>
             <div class="selection-arrows">
                 <a id="right" href="#"><i (click)="clicked('right')" class="fa fa-arrow-right" aria-hidden="true"></i></a>
