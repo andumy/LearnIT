@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Output, Input, EventEmitter } from '@angular/core';
 import { RenderService } from "../render.service";
 
 @Component({
@@ -9,23 +9,35 @@ import { RenderService } from "../render.service";
 })
 export class RenderComponent implements OnInit {
     Run: string = "Run";
-    consoleData: string;
 
+    @Input() ideResult: string;
     @Output() consoleVal: EventEmitter<string> = new EventEmitter<string>();
-    
-    constructor(private _httpService: RenderService,) { }
+    @Output() ideEm = new EventEmitter();
+
+    constructor(private _httpService: RenderService) { }
 
   ngOnInit() {
   }
 
-  onTestGet() {
-      
+  onGetServerData() {
       this._httpService.getData()
           .subscribe(
-          data => this.Run = JSON.stringify(data),
-          error => alert(error),
-          () => console.log("finished")
+          //data => this.consoleVal.emit(data.output),
+          error => this.consoleVal.emit(error),
           );
-      this.consoleVal.emit('test from render');
+     
   }
+  onPushServerData() {
+      console.log("1");
+      this.ideEm.emit(null);
+      this._httpService.pushData(this.ideResult)
+          .subscribe(
+          data => this.consoleVal.emit(data.output),
+          error => this.consoleVal.emit(error),
+      );
+  }
+
+ 
+   
+     
 }

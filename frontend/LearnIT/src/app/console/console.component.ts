@@ -9,7 +9,7 @@ import { Component, OnInit ,Input } from '@angular/core';
 
 export class ConsoleComponent implements OnInit {
   
-   @Input() textConsole: string = "ceva mai lung";
+   @Input() textConsole: string ;
 
 
   constructor() { }

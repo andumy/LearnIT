@@ -1,4 +1,4 @@
-import { Component, Input ,OnInit } from '@angular/core';
+import { Component, Output, EventEmitter ,OnInit } from '@angular/core';
 import 'codemirror/mode/clike/clike';
 @Component({
   selector: 'ide',
@@ -6,7 +6,11 @@ import 'codemirror/mode/clike/clike';
   styleUrls: ['./ide.component.css']
 })
 export class IdeComponent implements OnInit {
+
+    @Output() ideEmiter: EventEmitter<string> = new EventEmitter<string>();
+    content: string ;
     conf: any;
+    
     constructor() {
         this.conf = {
             lineNumbers: true,
@@ -14,7 +18,11 @@ export class IdeComponent implements OnInit {
             matchBrackets: true
         }; 
     }
-
+    
+    emitIde() {
+        console.log("2");
+        this.ideEmiter.emit(this.content);
+    }
   ngOnInit() {
   }
    

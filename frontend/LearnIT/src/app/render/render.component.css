@@ -31,6 +31,9 @@
     margin: auto;
     margin-top: 3vw;
 }
+.run a{
+    text-decoration:none;
+}
 .render-content>a>.run:hover{
     color: #cdcdcd;
     background-color: #601759;
