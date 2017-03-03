@@ -26,7 +26,6 @@ export class RenderComponent implements OnInit {
           error => alert(error),
           () => console.log("finished")
           );
-      
-      
+      this.consoleVal.emit('test from render');
   }
 }
