@@ -17,13 +17,13 @@ export class AppComponent {
 
     `;
     IdeGet(message: string): void {
-        console.log("3");
         this.ideText = message;
+        
+
     }
 
     ConsolePrint(message: string): void {
         this.consoleResult = message;
     }
-    
 
 }

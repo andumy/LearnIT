@@ -1,5 +1,7 @@
 import { Component, Output, EventEmitter ,OnInit } from '@angular/core';
+import { DataFetchService } from '../data-fetch.service';
 import 'codemirror/mode/clike/clike';
+
 @Component({
   selector: 'ide',
   templateUrl: './ide.component.html',
@@ -7,11 +9,11 @@ import 'codemirror/mode/clike/clike';
 })
 export class IdeComponent implements OnInit {
 
-    @Output() ideEmiter: EventEmitter<string> = new EventEmitter<string>();
-    content: string ;
+   content: string;
     conf: any;
     
-    constructor() {
+    constructor(private dataTr: DataFetchService) {
+        
         this.conf = {
             lineNumbers: true,
             mode: "text/x-csrc",
@@ -20,8 +22,7 @@ export class IdeComponent implements OnInit {
     }
     
     emitIde() {
-        console.log("2");
-        this.ideEmiter.emit(this.content);
+        this.dataTr.addData(this.content);
     }
   ngOnInit() {
   }

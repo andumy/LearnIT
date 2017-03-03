@@ -8,14 +8,14 @@
             </div>
             <div class="col-xs-6 col-sm-7">
                 <div class="container-content">
-                    <ide (ideEmiter)='IdeGet($event)' #ide>Loading Ide</ide>
+                    <ide #ide>Loading Ide</ide>
                     <!--<arrows-component>Loading Arrows</arrows-component>-->
                     <console-component [textConsole] ='consoleResult' >Loading Console</console-component>
                 </div>
             </div>
             <div class="col-xs-4 col-sm-4">
                 <div class="container-content border">
-                    <render-component (ideEm)="ide.emitIde()" [ideResult] ='ideText'  (consoleVal)='ConsolePrint($event)' >Loading Render</render-component>
+                    <render-component (ideEm)="ide.emitIde()"  (consoleVal)='ConsolePrint($event)' >Loading Render</render-component>
                     <description-component>Loading Description</description-component>
                 </div>
             </div>

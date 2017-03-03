@@ -12,6 +12,7 @@ import { ConsoleComponent } from './console/console.component';
 import { RenderComponent } from './render/render.component';
 import { DescriptionComponent } from './description/description.component';
 import { ArrowsComponent } from './arrows/arrows.component';
+import { DataFetchService } from './data-fetch.service';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,7 @@ import { ArrowsComponent } from './arrows/arrows.component';
     HttpModule,
     CodemirrorModule
   ],
-  providers: [],
+  providers: [DataFetchService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
