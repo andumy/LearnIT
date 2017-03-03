@@ -70,3 +70,24 @@ def run(request: HttpRequest):
     services.clean(filename)
 
     return JsonResponse(response)
+
+
+@csrf_exempt
+def level(request: HttpRequest):
+    return JsonResponse(
+        {
+            'description': 'Lorem Ipsum - dummy description',
+            'maze': [
+                [0, 1, 1, 1, 1, 1, 1, 1, 0, 0],
+                [0, 1, 1, 1, 1, 1, 1, 1, 0, 0],
+                [0, 1, 1, 1, 1, 1, 1, 1, 0, 0],
+                [0, 1, 1, 1, 1, 1, 1, 1, 0, 0],
+                [0, 1, 1, 1, 1, 1, 1, 1, 0, 0],
+                [0, 1, 1, 1, 1, 1, 1, 1, 0, 0],
+                [0, 1, 1, 1, 1, 1, 1, 1, 0, 0],
+                [0, 1, 1, 1, 1, 1, 1, 1, 0, 0],
+                [0, 1, 1, 1, 1, 1, 1, 1, 0, 0],
+                [0, 1, 1, 1, 1, 1, 1, 1, 0, 0],
+            ]
+        }
+    )
