@@ -7,4 +7,11 @@ import { Component } from '@angular/core';
 
 })
 export class AppComponent {
+    consoleResult: string = "initial log from parent";
+
+    onNotify(message: string) {
+        alert(message);
+    }
+    
+
 }

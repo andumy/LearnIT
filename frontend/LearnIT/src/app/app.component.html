@@ -10,12 +10,12 @@
                 <div class="container-content">
                     <!--<ide>Loading Ide</ide>-->
                     <arrows-component>Loading Arrows</arrows-component>
-                    <console-component>Loading Console</console-component>
+                    <console-component [textConsole] ='consoleResult' >Loading Console</console-component>
                 </div>
             </div>
             <div class="col-xs-4 col-sm-4">
                 <div class="container-content border">
-                    <render-component>Loading Render</render-component>
+                    <render-component (consoleVal)='onNotify($event)'>Loading Render</render-component>
                     <description-component>Loading Description</description-component>
                 </div>
             </div>
