@@ -126,6 +126,7 @@ def tutorial_init(request: HttpRequest, tutorial: str, level: str):
             'info': 'There is no such tutorial'
         }
     else:
+        x = services.get_input(tutorial, level)
         json_body = {
             'error': False,
             'tutorial': tutorial,
