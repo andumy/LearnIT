@@ -1,10 +1,12 @@
 import subprocess
+import json
 from django.http import JsonResponse
 from os import path
 
 STATIC_FOLDER = 'static/'
 SRC_EXT = '.cpp'
 DESCRIPTION_EXT = '.description'
+INPUT_EXT = '.in'
 CC = 'g++'
 CFLAG = '-Wall'
 
@@ -148,3 +150,22 @@ def get_framework(tutorial_name: str, level: str):
     file.close()
 
     return framework
+
+
+def get_input(tutorial_name: str, level: str):
+    """
+    Get the input for a certain tutorial at a certain level
+    :param tutorial_name: Name of the tutorial
+    :type tutorial_name: str
+    :param level: Level of the tutorial
+    :type level: str
+    :return input_dict: Input of the tutorial
+    :rtype input_dict: dict
+    """
+    filename = get_tutorial_file_name_path(tutorial_name, level, INPUT_EXT)
+    file = open(filename, 'r')
+    raw_text = file.read()
+    input_dict = json.loads(raw_text)
+    file.close()
+
+    return input_dict

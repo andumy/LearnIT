@@ -132,14 +132,7 @@ def tutorial_init(request: HttpRequest, tutorial: str, level: str):
             'level': level,
             'description': services.get_description(tutorial, level),
             'framework': services.get_framework(tutorial, level),
-            'input': {
-                'top': [
-                    "1111211111", "1001110110", "0100100010", "0001011101", "0000000100", "0110000111", "1110011000", "0010001100", "1101100010", "0101110100", "1111131111"
-                ],
-                'left': [
-                    "1111111111", "0001100000", "1111000000", "0111000000", "0001111000", "0011101101", "1101110110", "0110101011", "0010010100", "0001001110", "1111111111"
-                ]
-            }
+            'input': services.get_input(tutorial, level)
         }
     json_response = JsonResponse(json_body)
     services.set_response_headers(json_response)
