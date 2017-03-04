@@ -1,0 +1,9 @@
+﻿td {
+  width: 23px;
+  height: 23px;
+}
+
+.selected {
+  background-color: red;
+}
+

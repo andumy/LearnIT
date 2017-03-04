@@ -31,15 +31,15 @@
     margin: auto;
     margin-top: 3vw;
 }
-.run a{
-    text-decoration:none;
+a{
+    text-decoration:none!important;
 }
 .render-content>a>.run:hover{
     color: #cdcdcd;
     background-color: #601759;
     box-shadow: 0px 0px 75.68px 10.32px rgba(240, 101, 227, 0.80);
 }
-.render-content>a:hover{
+.render-content>a:focus{
     text-decoration: none;
 }
 .full-height{
