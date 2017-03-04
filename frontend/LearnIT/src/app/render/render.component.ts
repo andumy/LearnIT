@@ -1,4 +1,5 @@
 import { Component, OnInit, Output, Input, EventEmitter } from '@angular/core';
+import { Router, ActivatedRoute, Params } from '@angular/router';
 import { RenderService } from "../render.service";
 import { DataFetchService } from '../data-fetch.service';
 import { LevelService } from '../level.service'
@@ -19,30 +20,37 @@ export class RenderComponent implements OnInit {
     @Output() consoleVal: EventEmitter<string> = new EventEmitter<string>();
     @Output() ideEm = new EventEmitter();
 
-    constructor(private _httpService: RenderService, private dataTr: DataFetchService, private levelService:LevelService) { }
+    constructor(
+        private _httpService: RenderService, 
+        private dataTr: DataFetchService, 
+        private levelService:LevelService, 
+        private router: Router
+        ) { }
 
   ngOnInit() {
       this.onGetServerData();
       console.log(this.getData);
+     // document.getElementById("nextLevel").style.pointerEvents = "none";
   }
   compile(){
     
     switch(this.levelService.level){
         case 1:
+            console.log(this.levelDone);
             break;
         case 2:
+            this.levelDone = false;
+            console.log(this.levelDone);
             this.ideEm.emit(null);
             this.ideResult = this.dataTr.getData();
             this.onPushServerData(this.ideResult);
-            console.log(this.ideResult);
         break;    
     }
-      
-            if(this.levelDone && this.levelService.level<2){
 
+            if(this.levelDone){
                 this.levelService.addlevel()
                 this.nextLevel = this.levelService.level;
-                    console.log(this.levelService.level);
+                this.router.navigate(['/level'+this.nextLevel]);
             }   
             
 
