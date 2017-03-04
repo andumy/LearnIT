@@ -29,22 +29,22 @@ export class RenderComponent implements OnInit {
     
     switch(this.levelService.level){
         case 1:
-            console.log("level1");
             break;
         case 2:
             this.ideEm.emit(null);
             this.ideResult = this.dataTr.getData();
             this.onPushServerData(this.ideResult);
             console.log(this.ideResult);
-            break;
+        break;    
     }
       
-   if(this.levelDone){
+            if(this.levelDone && this.levelService.level<2){
 
-       this.levelService.addlevel()
-       this.nextLevel = this.levelService.level;
-        console.log(this.levelService.level);
-   }   
+                this.levelService.addlevel()
+                this.nextLevel = this.levelService.level;
+                    console.log(this.levelService.level);
+            }   
+            
 
   }
   onGetServerData() {

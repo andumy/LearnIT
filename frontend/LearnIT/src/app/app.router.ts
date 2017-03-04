@@ -2,13 +2,14 @@
  import { Routes , RouterModule } from '@angular/router';
 
  import { AppComponent } from './app.component';
- import { IdeComponent } from './ide/ide.component';
+ import { Level1Component } from './level1/level1.component';
+ import { Level2Component } from './level2/level2.component';
  import { ArrowsComponent } from './arrows/arrows.component';
 
  export const router: Routes= [
     //  { path: '', redirectTo: 'level1',pathMatch: 'full'},
-     { path: '', component: ArrowsComponent},
-     { path: 'level2', component: IdeComponent}
+     { path: '', component: Level1Component},
+     { path: 'level2', component: Level2Component}
     
  ];
 

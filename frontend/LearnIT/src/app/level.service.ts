@@ -8,4 +8,5 @@ export class LevelService {
   addlevel(){
     this.level++;
   }
+  
 }

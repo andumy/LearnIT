@@ -17,6 +17,8 @@ import { DescriptionComponent } from './description/description.component';
 import { ArrowsComponent } from './arrows/arrows.component';
 import { DataFetchService } from './data-fetch.service';
 import { LevelService } from './level.service';
+import { Level1Component } from './level1/level1.component';
+import { Level2Component } from './level2/level2.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +30,9 @@ import { LevelService } from './level.service';
     RenderComponent,
     DescriptionComponent,
     ArrowsComponent,
-    LabyrinthComponent
+    LabyrinthComponent,
+    Level1Component,
+    Level2Component
   ],
   imports: [
     BrowserModule,
