@@ -3,8 +3,11 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { CodemirrorModule } from 'ng2-codemirror';
+import { routes } from './app.router';
+
 
 import { AppComponent } from './app.component';
+import { LabyrinthComponent } from './labyrinth/labyrinth.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { SideMenuComponent } from './side-menu/side-menu.component';
 import { IdeComponent } from './ide/ide.component';
@@ -13,6 +16,9 @@ import { RenderComponent } from './render/render.component';
 import { DescriptionComponent } from './description/description.component';
 import { ArrowsComponent } from './arrows/arrows.component';
 import { DataFetchService } from './data-fetch.service';
+import { LevelService } from './level.service';
+import { Level1Component } from './level1/level1.component';
+import { Level2Component } from './level2/level2.component';
 
 @NgModule({
   declarations: [
@@ -23,15 +29,19 @@ import { DataFetchService } from './data-fetch.service';
     ConsoleComponent,
     RenderComponent,
     DescriptionComponent,
-    ArrowsComponent
+    ArrowsComponent,
+    LabyrinthComponent,
+    Level1Component,
+    Level2Component
   ],
   imports: [
     BrowserModule,
     FormsModule,
     HttpModule,
-    CodemirrorModule
+    CodemirrorModule,
+    routes
   ],
-  providers: [DataFetchService],
+  providers: [DataFetchService , LevelService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

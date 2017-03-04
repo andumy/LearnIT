@@ -22,6 +22,7 @@ export class IdeComponent implements OnInit {
     }
     
     emitIde() {
+        console.log(this.content);
         this.dataTr.addData(this.content);
     }
   ngOnInit() {

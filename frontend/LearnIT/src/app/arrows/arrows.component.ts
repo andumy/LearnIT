@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { DataFetchService } from '../data-fetch.service';
 
 export class ArrowListClass{
   pos: number;
@@ -13,7 +14,7 @@ export class ArrowListClass{
 
 export class ArrowsComponent implements OnInit {
 
-  constructor() { }
+  constructor(private dataTr: DataFetchService) { }
 
   ngOnInit() {
   }
@@ -28,6 +29,10 @@ export class ArrowsComponent implements OnInit {
       dir:direction
     });    
     this.i++;
+  }
+
+  emitArrows(){
+  this.dataTr.addData(this.arrowList);
   }
 
   destroy(id){
