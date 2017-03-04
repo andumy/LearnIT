@@ -19,11 +19,15 @@ def index(request: HttpRequest):
 
 
 @csrf_exempt
-def run(request: HttpRequest):
+def run(request: HttpRequest, tutorial: str = '', level: str = ''):
     """
     Run the code and get the result
     :param request: http request for this route
     :type request: HttpRequest
+    :param tutorial: Tutorial name (default '')
+    :type tutorial: str
+    :param level: Level of the tutorial (default '')
+    :type level: str
     :return: json response for this route
     :rtype: JsonResponse
     """
@@ -52,20 +56,24 @@ def run(request: HttpRequest):
         services.set_response_headers(json_response)
         return json_response
 
-    filename = 'main'
+    if tutorial == '' or level == '':
+        filename = 'main'
+        services.write_file(filename, code)
+    else:
+        filename = tutorial + level
+        services.replace_placeholder(tutorial, level, code)
 
     try:
-        services.write_file(filename, code)
-
         output_c, error_c = services.compile_file(filename)
 
         if error_c == b'':
-            output_r, error_r = services.run_exec(filename)
+            (output_r, error_r), return_code = services.run_exec(filename)
             if error_r == b'':
                 json_body = {
                     'internal': False,
                     'error': False,
-                    'output': output_r.decode('utf-8')
+                    'output': output_r.decode('utf-8'),
+                    'return': return_code
                 }
             else:
                 json_body = {
@@ -94,29 +102,6 @@ def run(request: HttpRequest):
     return json_response
 
 
-@csrf_exempt
-def level(request: HttpRequest):
-    return JsonResponse(
-        {
-            'description': 'Lorem Ipsum - dummy description',
-            'maze': [
-                [0, 1, 1, 1, 1, 1, 1, 1, 0, 0, 1, 1],
-                [0, 1, 1, 1, 1, 1, 1, 1, 0, 0, 1, 1],
-                [0, 1, 1, 1, 1, 1, 1, 1, 0, 0, 1, 1],
-                [0, 1, 1, 1, 1, 1, 1, 1, 0, 0, 1, 1],
-                [0, 1, 1, 1, 1, 1, 1, 1, 0, 0, 1, 1],
-                [0, 1, 1, 1, 1, 1, 1, 1, 0, 0, 1, 1],
-                [0, 1, 1, 1, 1, 1, 1, 1, 0, 0, 1, 1],
-                [0, 1, 1, 1, 1, 1, 1, 1, 0, 0, 1, 1],
-                [0, 1, 1, 1, 1, 1, 1, 1, 0, 0, 1, 1],
-                [0, 1, 1, 1, 1, 1, 1, 1, 0, 0, 1, 1],
-                [0, 1, 1, 1, 1, 1, 1, 1, 0, 0, 1, 1],
-                [0, 1, 1, 1, 1, 1, 1, 1, 0, 0, 1, 1],
-            ]
-        }
-    )
-
-
 def tutorial_init(request: HttpRequest, tutorial: str, level: str):
     if services.check_tutorial_existence(tutorial, level) is False:
         json_body = {
@@ -126,7 +111,6 @@ def tutorial_init(request: HttpRequest, tutorial: str, level: str):
             'info': 'There is no such tutorial'
         }
     else:
-        x = services.get_input(tutorial, level)
         json_body = {
             'error': False,
             'tutorial': tutorial,

@@ -28,41 +28,7 @@ int maze[DIM][DIM] = {
 bool wasHere[DIM][DIM];
 vector<int> path;
 
-bool backtrackingSolve(int x, int y) {
-    if (maze[x][y] == EXIT) {
-        return true;
-    }
-    if (maze[x][y] == WALL || wasHere[x][y])
-        return false;
-
-    wasHere[x][y] = true;
-    if (x != 0) {
-        if (backtrackingSolve(x-1, y)) {
-            path.insert(path.begin(), UP);
-            return true;
-        }
-    }
-    if (x != DIM - 1) {
-        if (backtrackingSolve(x+1, y)) {
-            path.insert(path.begin(), DOWN);
-            return true;
-        }
-    }
-    if (y != 0) {
-        if (backtrackingSolve(x, y-1)) {
-            path.insert(path.begin(), LEFT);
-            return true;
-        }
-    }
-    if (y != DIM -1) {
-        if (backtrackingSolve(x, y+1)) {
-            path.insert(path.begin(), RIGHT);
-            return true;
-        }
-    }
-    return false;
-}
-
+%@PLACEHOLDER@%
 
 int main() {
     unsigned int i;
