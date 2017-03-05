@@ -34,8 +34,6 @@ export class LabyrinthComponent implements OnInit {
 
     ngOnInit() { 
 
-        console.log(this.j)
-
         setTimeout(() => {                      
 
             for (let i = 0; i < this.dimensions; i++) {
@@ -77,7 +75,7 @@ export class LabyrinthComponent implements OnInit {
                         let changeId = this.actual.split("")[0] + (parseInt(this.actual.split("")[1]) + 1).toString();
                         document.getElementById("" + changeId + "").classList.add("selected");
                         this.actual = changeId;
-                        console.log(this.actual);
+                       
                     }
                 } else if (this.m[i] == "Left") {
                     if (matrix[parseInt(this.actual.split("")[0])][parseInt(this.actual.split("")[1]) - 1] == 0) {
@@ -85,7 +83,7 @@ export class LabyrinthComponent implements OnInit {
                         let changeId = this.actual.split("")[0] + (parseInt(this.actual.split("")[1]) - 1).toString();
                         document.getElementById("" + changeId + "").classList.add("selected");
                         this.actual = changeId;
-                        console.log(this.actual);
+                       
                     }
                 } else if (this.m[i] == "Top") {
                     if (matrix[parseInt(this.actual.split("")[0])-1][parseInt(this.actual.split("")[1])] == 0) {
@@ -93,7 +91,7 @@ export class LabyrinthComponent implements OnInit {
                         let changeId = (parseInt(this.actual.split("")[0])-1).toString() + this.actual.split("")[1].toString();
                         document.getElementById("" + changeId + "").classList.add("selected");
                         this.actual = changeId;
-                        console.log(this.actual);
+                        
                     }
                 } else if (this.m[i] == "Bottom") {
                     if (matrix[parseInt(this.actual.split("")[0])+1][parseInt(this.actual.split("")[1])] == 0) {
@@ -101,7 +99,7 @@ export class LabyrinthComponent implements OnInit {
                         let changeId = (parseInt(this.actual.split("")[0])+1).toString() + this.actual.split("")[1];
                         document.getElementById("" + changeId + "").classList.add("selected");
                         this.actual = changeId;
-                        console.log(this.actual);
+                        
                     }
                 }
             }
