@@ -43,6 +43,8 @@ export class RenderComponent implements OnInit {
             case 2:
                 this.dataTr.addData(this.getData['description']);
                 this.descEm.emit(null);
+                this.dataTr.addData(this.getData['framework']);
+                this.ideRec.emit(null);
             break;
 
             case 3:
