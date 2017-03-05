@@ -85,15 +85,6 @@ export class RenderComponent implements OnInit {
             
             this.onPushServerData(this.ideResult);
            
-            setTimeout(() => {
-                 
-                this.consoleVal.emit(this.outData);
-                if(this.outData == "Hello") this.levelDone = true;
-                {
-                   
-                    this.newLevel();
-                }
-                }, 2000);
             
         break;    
 
@@ -103,15 +94,7 @@ export class RenderComponent implements OnInit {
             
             this.onPushServerData(this.ideResult);
            
-            setTimeout(() => {
-                
-                this.consoleVal.emit(this.outData);
-                if(this.outData == "Hello") this.levelDone = true;
-                {
-                   
-                    this.newLevel();
-                }
-                }, 2000);
+            
         break;
     }
     
@@ -120,8 +103,7 @@ export class RenderComponent implements OnInit {
 
   }
 
-  finishMaze() {
-      console.log("mere");
+  finishMaze() {      
       this.levelDone = true;
       this.newLevel();
   }

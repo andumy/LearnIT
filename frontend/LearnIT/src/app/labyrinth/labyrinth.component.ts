@@ -4,6 +4,7 @@ import { Subscription } from 'rxjs/Subscription';
 
 import { dataPCService } from '../data-pc.service';
 import { DataFetchService } from '../data-fetch.service';
+import { LevelService } from '../level.service'
 
 import { ArrowListClass } from '../classes/arrowList';
 
@@ -22,7 +23,8 @@ export class LabyrinthComponent implements OnInit {
 
     constructor(
         private dataPC: dataPCService,
-        private dataTr: DataFetchService
+        private dataTr: DataFetchService,
+        private levelService: LevelService
     ) { }
 
     @Output() onFinish = new EventEmitter();
@@ -39,7 +41,9 @@ export class LabyrinthComponent implements OnInit {
     };
 
 
-    @Input() maze:any;
+    @Input() maze: any;
+
+    @Input() lvl2: any;
 
     enter: string;
     exit: string;
@@ -47,27 +51,75 @@ export class LabyrinthComponent implements OnInit {
     itiration: number = 0;    
 
     ngOnChanges(changes: any) {
-        console.log(this.maze);
+       
         if (this.maze != undefined) {
-            this.maze = this.maze.input.matrix;
-            for (let i = 0; i < this.maze.length; i++) {
-                let list = "";
-                for (let j = 0; j < this.maze[i].length; j++) {
-                    list = list + this.maze[i][j];
+            if (this.levelService.level == 1) {
+                this.maze = this.maze.input['matrix'];
+                for (let i = 0; i < this.maze.length; i++) {
+                    let list = "";
+                    for (let j = 0; j < this.maze[i].length; j++) {
+                        list = list + this.maze[i][j];
+                    }
+                    this.listMaze.top.push(list);
+                }                
+            } else if (this.levelService.level == 2) {
+                if (this.itiration != 1) {
+                    this.maze = this.maze.input['matrix'];
+                    for (let i = 0; i < this.maze.length; i++) {
+                        let list = "";
+                        for (let j = 0; j < this.maze[i].length; j++) {
+                            list = list + this.maze[i][j];
+                        }
+                        this.listMaze.top.push(list);
+                    }  
+                    this.itiration++;
                 }
-                this.listMaze.top.push(list);
+                              
+            } else if (this.levelService.level == 3) {
+                if (this.itiration != 1) {
+                    this.maze = this.maze.input['matrix'];
+                    for (let i = 0; i < this.maze.length; i++) {
+                        let list = "";
+                        for (let j = 0; j < this.maze[i].length; j++) {
+                            list = list + this.maze[i][j];
+                        }
+                        this.listMaze.top.push(list);
+                    }
+                    this.itiration++;
+                }
+
             }
             this.generateMaze();                        
-        }        
+        }  
+
+        if (this.lvl2 != undefined) {
+            this.com = [];
+
+            for (let i = 0; i < this.lvl2.length; i++) {
+                if (this.lvl2[i] == "1") {
+                    this.com.push("up");
+                } else if (this.lvl2[i] == "3") {
+                    this.com.push("down");
+                } else if (this.lvl2[i] == "2") {
+                    this.com.push("right");
+                } else if (this.lvl2[i] == "4") {
+                    this.com.push("left");
+                }
+            }
+            console.log(this.com);
+            this.activateMaza();            
+        }  
     }    
 
     ngOnInit() {
         this.subscription = this.dataPC.notifyObservable$.subscribe((res) => {            
-            this.com = [];
-            for (let i = 0; i < res.length; i++) {                
-                this.com.push(res[i].dir);
-            }
-            console.log(this.com);
+            this.com = [];           
+            if (this.levelService.level == 1) {
+                for (let i = 0; i < res.length; i++) {
+                    this.com.push(res[i].dir);
+                }
+            } 
+            
             this.activateMaza();
         });                  
     };
@@ -112,41 +164,42 @@ export class LabyrinthComponent implements OnInit {
         
     }
 
-    forFunction(i, matrix) {        
-        setTimeout(() => {           
+    forFunction(i, matrix) {       
+        setTimeout(() => {
+            console.log(i);
             if (this.com[i] == "right") {
-                if ((matrix[parseInt(this.actual.split("")[0])][parseInt(this.actual.split("")[1]) + 1] == 0)||(matrix[parseInt(this.actual.split("")[0])][parseInt(this.actual.split("")[1]) + 1] == 3)) {                                
-                    document.getElementById("" + this.actual + "").classList.remove("selected");
-                    let changeId = this.actual.split("")[0] + (parseInt(this.actual.split("")[1]) + 1).toString();
-                    document.getElementById("" + changeId + "").classList.add("selected");                   
+                if ((matrix[parseInt(this.actual.split("")[0])][parseInt(this.actual.split("")[1]) + 1] == 0) || (matrix[parseInt(this.actual.split("")[0])][parseInt(this.actual.split("")[1]) + 1] == 3)) { 
+                    document.getElementById("" + this.actual + "").classList.remove("selected");  
+                    let changeId = this.actual.split("")[0] + (parseInt(this.actual.split("")[1]) + 1).toString();                    
+                    document.getElementById("" + changeId + "").className += "selected";
                     this.actual = changeId;                                      
                 }                
             } else if (this.com[i] == "left") {
                 if (matrix[parseInt(this.actual.split("")[0])][parseInt(this.actual.split("")[1]) - 1] == 0) {
                     document.getElementById("" + this.actual + "").classList.remove("selected");
                     let changeId = this.actual.split("")[0] + (parseInt(this.actual.split("")[1]) - 1).toString();
-                    document.getElementById("" + changeId + "").classList.add("selected");
+                    document.getElementById("" + changeId + "").className += "selected";
                     this.actual = changeId;                    
                 }
             } else if (this.com[i] == "up") {
                 if (matrix[parseInt(this.actual.split("")[0]) - 1][parseInt(this.actual.split("")[1])] == 0) {
                     document.getElementById("" + this.actual + "").classList.remove("selected");
                     let changeId = (parseInt(this.actual.split("")[0]) - 1).toString() + this.actual.split("")[1].toString();
-                    document.getElementById("" + changeId + "").classList.add("selected");
+                    document.getElementById("" + changeId + "").className += "selected";
                     this.actual = changeId;                   
                 }
             } else if (this.com[i] == "down") {
                 if (matrix[parseInt(this.actual.split("")[0]) + 1][parseInt(this.actual.split("")[1])] == 0) {
                     document.getElementById("" + this.actual + "").classList.remove("selected");
                     let changeId = (parseInt(this.actual.split("")[0]) + 1).toString() + this.actual.split("")[1];
-                    document.getElementById("" + changeId + "").classList.add("selected");
+                    document.getElementById("" + changeId + "").className += "selected";
                     this.actual = changeId;
                 }
             }
             if (i == this.com.length - 1) {
                 this.endIt();
             }
-        }, i*400)
+        }, i*300)
     };
 
     endIt() {
