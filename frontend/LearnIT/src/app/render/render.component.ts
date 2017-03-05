@@ -7,7 +7,6 @@ import { DataFetchService } from '../data-fetch.service';
 import { LevelService } from '../level.service'
 import { dataPCService } from '../data-pc.service'
 
-
 import { ArrowListClass } from '../classes/arrowList'; 
 
 
@@ -47,23 +46,18 @@ export class RenderComponent implements OnInit {
   ngOnInit() {
     this.onGetServerData();
     setTimeout(() => {
+        console.log(this.levelService.level);
         switch(this.levelService.level){
-            case 1:
+            case 1:                
                 this.dataTr.addData(this.getData['description']);
-                this.descEm.emit(null);
-                this.emitGetArrows.emit(null);
-                this.arrowResult = this.dataTr.getData();
-                this.dataPC.notifyOther(this.arrowResult);
-                break;
+                this.descEm.emit(null);                 
             break;
-
             case 2:
                 this.dataTr.addData(this.getData['description']);
                 this.descEm.emit(null);
                 this.dataTr.addData(this.getData['framework']);
                 this.ideRec.emit(null);
             break;
-
             case 3:
                 this.dataTr.addData(this.getData['description']);
                 this.descEm.emit(null);
@@ -78,9 +72,11 @@ export class RenderComponent implements OnInit {
   compile(){
     
     switch(this.levelService.level){
-        case 1:
-        this.levelDone = true; 
-            this.newLevel();
+        case 1:            
+            this.emitGetArrows.emit(null);
+            this.arrowResult = this.dataTr.getData();
+            this.dataPC.notifyOther(this.arrowResult); 
+            
         break;
         
         case 2:
@@ -122,6 +118,12 @@ export class RenderComponent implements OnInit {
             
             
 
+  }
+
+  finishMaze() {
+      console.log("mere");
+      this.levelDone = true;
+      this.newLevel();
   }
 
   newLevel()

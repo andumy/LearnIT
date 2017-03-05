@@ -6,7 +6,7 @@
             </div>
             <div class="col-xs-4 col-sm-4">
                 <div class="container-content border">
-                    <render-component (ideEm)="ide.emitIde()" (descEm)="descriptioncmp.emDesc()" (consoleVal)='ConsolePrint($event)' >Loading Render</render-component>
+                    <render-component (emitGetArrows)="arrowComponent.emitArrows()" (descEm)="descriptioncmp.emDesc()" (consoleVal)='ConsolePrint($event)' >Loading Render</render-component>
                     <descriptioncmp #descriptioncmp>Loading Description</descriptioncmp>
                 </div>
             </div>

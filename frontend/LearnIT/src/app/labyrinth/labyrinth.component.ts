@@ -1,4 +1,4 @@
-﻿import { Component , Input, OnInit, OnChanges } from '@angular/core';
+﻿import { Component, Input, OnInit, OnChanges, EventEmitter, Output  } from '@angular/core';
 import { Directive, Renderer, ElementRef } from '@angular/core';
 import { Subscription } from 'rxjs/Subscription';
 
@@ -25,6 +25,8 @@ export class LabyrinthComponent implements OnInit {
         private dataTr: DataFetchService
     ) { }
 
+    @Output() onFinish = new EventEmitter();
+
     dimensions: number = 10;
 
     cols: Array<Number> = new Array(this.dimensions);
@@ -45,6 +47,7 @@ export class LabyrinthComponent implements OnInit {
     itiration: number = 0;    
 
     ngOnChanges(changes: any) {
+        console.log(this.maze);
         if (this.maze != undefined) {
             this.maze = this.maze.input.matrix;
             for (let i = 0; i < this.maze.length; i++) {
@@ -59,10 +62,12 @@ export class LabyrinthComponent implements OnInit {
     }    
 
     ngOnInit() {
-        this.subscription = this.dataPC.notifyObservable$.subscribe((res) => {
-            for (let i = 0; i < res.length; i++) {
+        this.subscription = this.dataPC.notifyObservable$.subscribe((res) => {            
+            this.com = [];
+            for (let i = 0; i < res.length; i++) {                
                 this.com.push(res[i].dir);
             }
+            console.log(this.com);
             this.activateMaza();
         });                  
     };
@@ -141,12 +146,12 @@ export class LabyrinthComponent implements OnInit {
             if (i == this.com.length - 1) {
                 this.endIt();
             }
-        }, i*1000)
+        }, i*400)
     };
 
     endIt() {
-        if (this.actual == this.exit) {
-            
+        if (this.actual == this.exit) {            
+            this.onFinish.emit(null);
         } else {           
             document.getElementById("" + this.actual + "").classList.remove("selected");
             this.actual = this.enter;
