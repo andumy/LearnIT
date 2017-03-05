@@ -31,22 +31,22 @@ vector<int> path;
 
 void moveUp() {
     x--;
-    path.insert(path.begin(), UP);
+    path.push_back(UP);
 }
 
 void moveDown() {
     x++;
-    path.insert(path.begin(), DOWN);
+    path.push_back(DOWN);
 }
 
 void moveRight() {
     y++;
-    path.insert(path.begin(), RIGHT);
+    path.push_back(RIGHT);
 }
 
 void moveLeft() {
     y--;
-    path.insert(path.begin(), LEFT);
+    path.push_back(LEFT);
 }
 
 bool sequentiallySolve() {
