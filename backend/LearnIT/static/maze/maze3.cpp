@@ -8,8 +8,8 @@
 #define EXIT    3
 #define UP      1
 #define RIGHT   2
-#define DOWN    -1
-#define LEFT    -2
+#define DOWN    3
+#define LEFT    4
 
 using namespace std;
 
