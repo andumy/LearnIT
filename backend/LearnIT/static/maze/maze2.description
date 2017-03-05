@@ -1,0 +1,1 @@
+<h5>Maze - Level 2</h5>You have defined 4 functions: moveUp(), moveDown(), moveRight() and moveLeft() that will move our friend in the mentioned direction. Use them to help him get out of the maze. When you think you've got your path done, hit <b>Run <i class="fa fa-chevron-right" aria-hidden="true"></i></b>.

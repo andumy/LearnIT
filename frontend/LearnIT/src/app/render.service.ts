@@ -37,8 +37,27 @@ export class RenderService {
                 var headers = new Headers();
                 headers.append('Content-Type', 'application/x-www-form-urlencoded');
                 break;
+            case 3:
+            
+                var params = {
+                code: data
+            };
+            
+                var paramsString = JSON.stringify(params);
+                var serverSendData = paramsString.replace(/\\n/g, "\\n")
+                                                    .replace(/\\'/g, "\\'")
+                                                    .replace(/\\"/g, '\\"')
+                                                    .replace(/\\&/g, "\\&")
+                                                    .replace(/\\r/g, "\\r")
+                                                    .replace(/\\t/g, "\\t")
+                                                    .replace(/\\b/g, "\\b")
+                                                    .replace(/\\f/g, "\\f");
+                
+                var headers = new Headers();
+                headers.append('Content-Type', 'application/x-www-form-urlencoded');
+                break;
         }
-        return this._http.post('https://learnit.fwd.wf/core/run', serverSendData, {
+        return this._http.post('https://learnit.fwd.wf/core/run/maze/'+ this.levelService.level, serverSendData, {
                     headers: headers
                 })
                 

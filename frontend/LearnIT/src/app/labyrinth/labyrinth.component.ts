@@ -36,6 +36,7 @@ export class LabyrinthComponent implements OnInit {
         top: []
     };
 
+
     @Input() maze:any;
 
     enter: string;
@@ -134,7 +135,7 @@ export class LabyrinthComponent implements OnInit {
                     document.getElementById("" + this.actual + "").classList.remove("selected");
                     let changeId = (parseInt(this.actual.split("")[0]) + 1).toString() + this.actual.split("")[1];
                     document.getElementById("" + changeId + "").classList.add("selected");
-                    this.actual = changeId;                    
+                    this.actual = changeId;
                 }
             }
             if (i == this.com.length - 1) {
