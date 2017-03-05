@@ -103,6 +103,7 @@ def run(request: HttpRequest, tutorial: str = '', level: str = ''):
     return json_response
 
 
+@csrf_exempt
 def tutorial_init(request: HttpRequest, tutorial: str, level: str):
     if services.check_tutorial_existence(tutorial, level) is False:
         json_body = {
