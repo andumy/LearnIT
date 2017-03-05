@@ -46,8 +46,9 @@ Network Trash Folder
 Temporary Items
 .apdisk
 *.idea*
-*__pycache__*
-
 backend/LearnIT/ENV/*
 frontend/LearnIT/node_modules/*
+*.pyc
+backend/LearnIT/LearnIT/__pycache__/*.pyc
 LearnIT
+

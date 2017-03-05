@@ -1,14 +1,18 @@
 import subprocess
 import json
+import fileinput
 from django.http import JsonResponse
 from os import path
+from shutil import copyfile
 
 STATIC_FOLDER = 'static/'
 SRC_EXT = '.cpp'
 DESCRIPTION_EXT = '.description'
+SCH_EXT = '.sch'
 INPUT_EXT = '.in'
 CC = 'g++'
 CFLAG = '-Wall'
+PLACEHOLDER = '%@PLACEHOLDER@%'
 
 
 def get_file_full_path(filename: str):
@@ -62,13 +66,14 @@ def run_exec(filename: str):
     :param filename: Name of the file
     :type filename: str
     :return:
-    :rtype: bytearray, bytearray
+    :rtype: bytearray, bytearray, bytearray
     """
     run_process = subprocess.Popen(
         [get_exec_full_path(filename)],
         stdout=subprocess.PIPE, stderr=subprocess.PIPE
     )
-    return run_process.communicate()
+
+    return run_process.communicate(), run_process.returncode
 
 
 def clean(filename: str):
@@ -144,7 +149,9 @@ def get_framework(tutorial_name: str, level: str):
     :return framework: Framework of the tutorial
     :rtype framework: str
     """
-    filename = get_tutorial_file_name_path(tutorial_name, level, SRC_EXT)
+    filename = get_tutorial_file_name_path(tutorial_name, level, SCH_EXT)
+    if path.isfile(filename) is False:
+        return ''
     file = open(filename, 'r')
     framework = file.read()
     file.close()
@@ -163,9 +170,21 @@ def get_input(tutorial_name: str, level: str):
     :rtype input_dict: dict
     """
     filename = get_tutorial_file_name_path(tutorial_name, level, INPUT_EXT)
+    if path.isfile(filename) is False:
+        return {}
     file = open(filename, 'r')
     raw_text = file.read()
     input_dict = json.loads(raw_text)
     file.close()
 
     return input_dict
+
+
+def replace_placeholder(tutorial_name: str, level: str, content: str):
+    src_filename = get_tutorial_file_name_path(tutorial_name, level, SRC_EXT)
+    dst_filename = get_file_full_path(tutorial_name + level)
+    copyfile(src_filename, dst_filename)
+
+    with fileinput.FileInput(dst_filename, inplace=True, backup='.bak') as file_it:
+        for line in file_it:
+            print(line.replace(PLACEHOLDER, content), end='')
