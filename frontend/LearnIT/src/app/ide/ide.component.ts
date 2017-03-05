@@ -22,9 +22,12 @@ export class IdeComponent implements OnInit {
     }
     
     emitIde() {
-        console.log(this.content);
         this.dataTr.addData(this.content);
     }
+    recIde(){
+        this.content = this.dataTr.getData();
+    }
+
   ngOnInit() {
   }
    

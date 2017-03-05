@@ -12,48 +12,107 @@ import { LevelService } from '../level.service'
 
 })
 export class RenderComponent implements OnInit {
-    levelDone:boolean = true;
+    levelDone:boolean = false;
     getData: string;
+    outData: string;
     ideResult: string;
     nextLevel: number;
 
     @Output() consoleVal: EventEmitter<string> = new EventEmitter<string>();
     @Output() ideEm = new EventEmitter();
-
+    @Output() ideRec = new EventEmitter();
+    @Output() descEm = new EventEmitter();
     constructor(
         private _httpService: RenderService, 
         private dataTr: DataFetchService, 
         private levelService:LevelService, 
         private router: Router
-        ) { }
+        ) {
+             
+         }
 
   ngOnInit() {
-      this.onGetServerData();
-      console.log(this.getData);
-     // document.getElementById("nextLevel").style.pointerEvents = "none";
+    this.onGetServerData();
+    setTimeout(() => {
+        switch(this.levelService.level){
+            case 1:
+                this.dataTr.addData(this.getData['description']);
+                this.descEm.emit(null);
+            break;
+
+            case 2:
+                this.dataTr.addData(this.getData['description']);
+                this.descEm.emit(null);
+            break;
+
+            case 3:
+                this.dataTr.addData(this.getData['description']);
+                this.descEm.emit(null);
+                this.dataTr.addData(this.getData['framework']);
+                this.ideRec.emit(null);
+            break;
+
+        }
+                
+                }, 1000);
   }
   compile(){
     
     switch(this.levelService.level){
         case 1:
-            console.log(this.levelDone);
-            break;
+        this.levelDone = true; 
+            this.newLevel();
+        break;
+        
         case 2:
-            this.levelDone = false;
-            console.log(this.levelDone);
             this.ideEm.emit(null);
             this.ideResult = this.dataTr.getData();
+            
             this.onPushServerData(this.ideResult);
+           
+            setTimeout(() => {
+                 
+                this.consoleVal.emit(this.outData);
+                if(this.outData == "Hello") this.levelDone = true;
+                {
+                   
+                    this.newLevel();
+                }
+                }, 2000);
+            
         break;    
-    }
 
-            if(this.levelDone){
+        case 3:
+            this.ideEm.emit(null);
+            this.ideResult = this.dataTr.getData();
+            
+            this.onPushServerData(this.ideResult);
+           
+            setTimeout(() => {
+                
+                this.consoleVal.emit(this.outData);
+                if(this.outData == "Hello") this.levelDone = true;
+                {
+                   
+                    this.newLevel();
+                }
+                }, 2000);
+        break;
+    }
+    
+            
+            
+
+  }
+
+  newLevel()
+  {
+    if(this.levelDone){
                 this.levelService.addlevel()
                 this.nextLevel = this.levelService.level;
                 this.router.navigate(['/level'+this.nextLevel]);
+                this.levelDone = false;
             }   
-            
-
   }
   onGetServerData() {
       this._httpService.getData()
@@ -67,7 +126,7 @@ export class RenderComponent implements OnInit {
       
       this._httpService.pushData(dataSent , this.levelService.level)
           .subscribe(
-          data => this.consoleVal.emit(data.output),
+          data => this.outData = data.output,
           error => this.consoleVal.emit(error),
       );
   }
