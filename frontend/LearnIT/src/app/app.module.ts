@@ -1,4 +1,4 @@
-import { BrowserModule } from '@angular/platform-browser';
+﻿import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
@@ -17,6 +17,7 @@ import { DescriptionComponent } from './description/description.component';
 import { ArrowsComponent } from './arrows/arrows.component';
 import { DataFetchService } from './data-fetch.service';
 import { LevelService } from './level.service';
+import { dataPCService } from './data-pc.service';
 import { Level1Component } from './level1/level1.component';
 import { Level2Component } from './level2/level2.component';
 
@@ -41,7 +42,7 @@ import { Level2Component } from './level2/level2.component';
     CodemirrorModule,
     routes
   ],
-  providers: [DataFetchService , LevelService],
+  providers: [DataFetchService, LevelService, dataPCService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

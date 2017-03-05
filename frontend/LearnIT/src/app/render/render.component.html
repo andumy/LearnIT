@@ -1,9 +1,9 @@
-<div class="render">
+﻿<div class="render">
     <div class="row">
         <div class="col-xs-10 col-xs-offset-1 full-height">
             <div class="render-content">
                 <div class="iframe-render">
-                    <labyrinth-component></labyrinth-component>
+                    <labyrinth-component [maze] ='this.getData'></labyrinth-component>
                 </div>
                 <a>
                     <div (click)="compile()" class="run">

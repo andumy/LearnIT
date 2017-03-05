@@ -1,9 +1,9 @@
-<div class="arrows">
+﻿<div class="arrows">
     <div class="row">
         <div class="col-xs-12 full-height">
            <div class="display-arrows">
                        <div class="row">
-                            <div id="{{i}}" *ngFor="let arrow of arrowList; let i=index" class="col-sm-1">
+                            <div id="100{{i}}" *ngFor="let arrow of arrowList; let i=index" class="col-sm-1">
                                 <i (click)="destroy(i)" class="fa fa-arrow-{{arrow.dir}}" aria-hidden="true"></i>
                             </div>
                        </div>

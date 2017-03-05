@@ -1,4 +1,4 @@
-import { Injectable, } from '@angular/core';
+﻿import { Injectable, } from '@angular/core';
 import { Http, Headers } from "@angular/http";
 import { LevelService } from './level.service';
 import 'rxjs/add/operator/map'
@@ -9,7 +9,7 @@ export class RenderService {
     constructor(private _http: Http, private levelService:LevelService) { }
 
     getData() {
-        return this._http.get('https://learnit.fwd.wf/core/init/maze/' + this.levelService.level)
+        return this._http.get('https://learnit.fwd.wf/core/init/maze/3') /*+ this.levelService.level)*/
                     .map(res => res.json())
     }
 
