@@ -8,8 +8,8 @@
 #define EXIT    3
 #define UP      1
 #define RIGHT   2
-#define DOWN    -1
-#define LEFT    -2
+#define DOWN    3
+#define LEFT    4
 
 using namespace std;
 
@@ -36,9 +36,11 @@ int main() {
     bool solve = backtrackingSolve(1, 0);
 
     for (i = 0; i < path.size(); i++) {
-        cout << path[i] << ' ';
+        cout << path[i];
+        if (i != path.size() - 1) {
+            cout  << ' ';
+        }
     }
-    cout << endl;
 
     return solve ? 0 : 1;
 }

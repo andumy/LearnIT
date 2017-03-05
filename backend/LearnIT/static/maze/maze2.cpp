@@ -7,8 +7,8 @@
 #define EXIT    3
 #define UP      1
 #define RIGHT   2
-#define DOWN    -1
-#define LEFT    -2
+#define DOWN    3
+#define LEFT    4
 
 using namespace std;
 
@@ -31,22 +31,22 @@ vector<int> path;
 
 void moveUp() {
     x--;
-    path.insert(path.begin(), UP);
+    path.push_back(UP);
 }
 
 void moveDown() {
     x++;
-    path.insert(path.begin(), DOWN);
+    path.push_back(DOWN);
 }
 
 void moveRight() {
     y++;
-    path.insert(path.begin(), RIGHT);
+    path.push_back(RIGHT);
 }
 
 void moveLeft() {
     y--;
-    path.insert(path.begin(), LEFT);
+    path.push_back(LEFT);
 }
 
 bool sequentiallySolve() {
@@ -63,9 +63,11 @@ int main() {
     bool solved = sequentiallySolve();
 
     for (i = 0; i < path.size(); i++) {
-        cout << path[i] << ' ';
+        cout << path[i];
+        if (i != path.size() - 1) {
+            cout  << ' ';
+        }
     }
-    cout << endl;
 
     return solved ? 0 : 1;
 }
