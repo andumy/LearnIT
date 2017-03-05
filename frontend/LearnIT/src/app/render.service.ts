@@ -57,7 +57,7 @@ export class RenderService {
                 headers.append('Content-Type', 'application/x-www-form-urlencoded');
                 break;
         }
-        return this._http.post('https://learnit.fwd.wf/core/run', serverSendData, {
+        return this._http.post('https://learnit.fwd.wf/core/run/maze/'+ this.levelService.level, serverSendData, {
                     headers: headers
                 })
                 
