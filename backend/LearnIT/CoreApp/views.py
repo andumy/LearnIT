@@ -63,7 +63,6 @@ def run(request: HttpRequest, tutorial: str = '', level: str = ''):
     else:
         filename = tutorial + level
         services.replace_placeholder(tutorial, level, code)
-        time.sleep(2)
 
     try:
         output_c, error_c = services.compile_file(filename)
