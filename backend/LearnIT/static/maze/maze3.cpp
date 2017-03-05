@@ -38,7 +38,6 @@ int main() {
     for (i = 0; i < path.size(); i++) {
         cout << path[i] << ' ';
     }
-    cout << endl;
 
     return solve ? 0 : 1;
 }
