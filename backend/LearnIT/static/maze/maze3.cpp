@@ -36,7 +36,10 @@ int main() {
     bool solve = backtrackingSolve(1, 0);
 
     for (i = 0; i < path.size(); i++) {
-        cout << path[i] << ' ';
+        cout << path[i];
+        if (i != path.size() - 1) {
+            cout  << ' ';
+        }
     }
 
     return solve ? 0 : 1;
