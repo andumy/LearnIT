@@ -1,32 +1,44 @@
-import { Component, OnInit, Output, Input, EventEmitter } from '@angular/core';
+﻿import { Component, OnInit, Output, Input, EventEmitter } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
+import { Subscription } from 'rxjs/Subscription';
+
 import { RenderService } from "../render.service";
 import { DataFetchService } from '../data-fetch.service';
 import { LevelService } from '../level.service'
+import { dataPCService } from '../data-pc.service'
+
+import { ArrowListClass } from '../classes/arrowList'; 
+
 
 @Component({
-  selector: 'render-component',
-  templateUrl: './render.component.html',
-  styleUrls: ['./render.component.css'],
-  providers: [RenderService]
+    selector: 'render-component',
+    templateUrl: './render.component.html',
+    styleUrls: ['./render.component.css'],
+    providers: [RenderService]
 
 })
 export class RenderComponent implements OnInit {
-    levelDone:boolean = false;
+
+    levelDone: boolean = false;
     getData: string;
     outData: string;
     ideResult: string;
     nextLevel: number;
+    arrowResult: Array<ArrowListClass>;
 
     @Output() consoleVal: EventEmitter<string> = new EventEmitter<string>();
     @Output() ideEm = new EventEmitter();
     @Output() ideRec = new EventEmitter();
     @Output() descEm = new EventEmitter();
+    @Output() emitGetArrows = new EventEmitter();
+    @Output() emitSendMatrix = new EventEmitter();
+
     constructor(
         private _httpService: RenderService, 
         private dataTr: DataFetchService, 
         private levelService:LevelService, 
-        private router: Router
+        private router: Router,
+        private dataPC: dataPCService
         ) {
              
          }
@@ -34,19 +46,18 @@ export class RenderComponent implements OnInit {
   ngOnInit() {
     this.onGetServerData();
     setTimeout(() => {
+        console.log(this.levelService.level);
         switch(this.levelService.level){
-            case 1:
+            case 1:                
                 this.dataTr.addData(this.getData['description']);
-                this.descEm.emit(null);
+                this.descEm.emit(null);                 
             break;
-
             case 2:
                 this.dataTr.addData(this.getData['description']);
                 this.descEm.emit(null);
                 this.dataTr.addData(this.getData['framework']);
                 this.ideRec.emit(null);
             break;
-
             case 3:
                 this.dataTr.addData(this.getData['description']);
                 this.descEm.emit(null);
@@ -61,9 +72,11 @@ export class RenderComponent implements OnInit {
   compile(){
     
     switch(this.levelService.level){
-        case 1:
-        this.levelDone = true; 
-            this.newLevel();
+        case 1:            
+            this.emitGetArrows.emit(null);
+            this.arrowResult = this.dataTr.getData();
+            this.dataPC.notifyOther(this.arrowResult); 
+            
         break;
         
         case 2:
@@ -105,6 +118,12 @@ export class RenderComponent implements OnInit {
             
             
 
+  }
+
+  finishMaze() {
+      console.log("mere");
+      this.levelDone = true;
+      this.newLevel();
   }
 
   newLevel()

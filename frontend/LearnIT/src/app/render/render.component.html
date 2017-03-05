@@ -1,9 +1,9 @@
-<div class="render">
+﻿<div class="render">
     <div class="row">
         <div class="col-xs-8 col-xs-offset-2 full-height">
             <div class="render-content">
                 <div class="iframe-render">
-                    <labyrinth-component></labyrinth-component>
+                    <labyrinth-component [maze] ='this.getData' (onFinish)="finishMaze($event)"></labyrinth-component>
                 </div>
                 <a>
                     <div (click)="compile()" class="run">
