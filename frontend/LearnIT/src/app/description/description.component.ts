@@ -8,7 +8,7 @@ import { DataFetchService } from '../data-fetch.service';
 })
 export class DescriptionComponent implements OnInit {
 
-    descriptionData: string = " Lorem ipsum dolor sit amet, consectetur adipiscing elit.";
+    descriptionData: string ;
     content: string;
     conf: any;
     
