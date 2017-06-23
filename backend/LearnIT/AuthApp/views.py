@@ -10,9 +10,7 @@ def login_action(request: HttpRequest):
     if request.method != 'POST':
         json_response = JsonResponse(
             {
-                'internal': True,
-                'error': True,
-                'output': 'Internal error: api call method is not POST'
+                'auth': False,
             }
         )
         services.set_response_headers(json_response)
@@ -24,14 +22,13 @@ def login_action(request: HttpRequest):
 
     if user is not None:
         login(request, user)
-        json_body = {'ok': 'GET'}
-        json_response = JsonResponse(json_body)
-        # services.set_response_headers(json_response)
-        return json_response
+        json_body = {'auth': True}
+    else:
+        json_body = {'auth': False}
 
-    json_body = {'nok': 'GET'}
     json_response = JsonResponse(json_body)
     services.set_response_headers(json_response)
+
     return json_response
 
 
@@ -39,7 +36,8 @@ def login_action(request: HttpRequest):
 def logout_action(request: HttpRequest):
     logout(request)
 
-    json_body = {'ok': 'GET'}
+    json_body = {'auth': False}
     json_response = JsonResponse(json_body)
     services.set_response_headers(json_response)
+
     return json_response
