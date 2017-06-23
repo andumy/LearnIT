@@ -23,7 +23,11 @@ def login_action(request: HttpRequest):
     user = authenticate(username=username, password=password)
 
     if user is not None:
-        return login(request, user)
+        login(request, user)
+        json_body = {'ok': 'GET'}
+        json_response = JsonResponse(json_body)
+        # services.set_response_headers(json_response)
+        return json_response
 
     json_body = {'nok': 'GET'}
     json_response = JsonResponse(json_body)
