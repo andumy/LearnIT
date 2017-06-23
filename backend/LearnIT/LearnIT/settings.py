@@ -25,7 +25,7 @@ SECRET_KEY = 'l4x8b3^!s44!s%8x4d=sh&_$rx(4ttg*7l6$ewbb^3$2ah88w@'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['0.0.0.0', '127.0.0.1', 'learnit.fwd.wf']
+ALLOWED_HOSTS = ['0.0.0.0', '127.0.0.1', '82.118.226.25']
 
 
 # Application definition

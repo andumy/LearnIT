@@ -2,7 +2,6 @@ from django.http import HttpResponse, JsonResponse, HttpRequest
 from django.views.decorators.csrf import csrf_exempt
 from . import services
 import json
-import time
 
 
 @csrf_exempt
@@ -14,6 +13,31 @@ def index(request: HttpRequest):
         return json_response
 
     json_body = {'nok': 'GET'}
+    json_response = JsonResponse(json_body)
+    services.set_response_headers(json_response)
+    return json_response
+
+
+@csrf_exempt
+def tutorial_init(request: HttpRequest, tutorial: str, language: str, level: str):
+    if services.check_tutorial_existence(tutorial, level) is False:
+        json_body = {
+            'error': True,
+            'tutorial': tutorial,
+            'language': language,
+            'level': level,
+            'info': 'There is no such tutorial'
+        }
+    else:
+        json_body = {
+            'error': False,
+            'tutorial': tutorial,
+            'language': language,
+            'level': level,
+            'description': services.get_description(tutorial, level),
+            'framework': services.get_framework(tutorial, level),
+            'input': services.get_input(tutorial, level)
+        }
     json_response = JsonResponse(json_body)
     services.set_response_headers(json_response)
     return json_response
@@ -51,7 +75,7 @@ def run(request: HttpRequest, tutorial: str = '', level: str = ''):
             {
                 'internal': True,
                 'error': True,
-                'output': 'Internal error: The \'code\' key was not found in request'
+                'output': 'Internal error: The \'code\' key was not found in the request'
             }
         )
         services.set_response_headers(json_response)
@@ -92,7 +116,7 @@ def run(request: HttpRequest, tutorial: str = '', level: str = ''):
         json_body = {
             'internal': True,
             'error': True,
-            'Internal exception': e.__traceback__
+            'internal_exception': e.__traceback__
         }
         pass
 
@@ -100,27 +124,4 @@ def run(request: HttpRequest, tutorial: str = '', level: str = ''):
     json_response = JsonResponse(json_body)
     services.set_response_headers(json_response)
 
-    return json_response
-
-
-@csrf_exempt
-def tutorial_init(request: HttpRequest, tutorial: str, level: str):
-    if services.check_tutorial_existence(tutorial, level) is False:
-        json_body = {
-            'error': True,
-            'tutorial': tutorial,
-            'level': level,
-            'info': 'There is no such tutorial'
-        }
-    else:
-        json_body = {
-            'error': False,
-            'tutorial': tutorial,
-            'level': level,
-            'description': services.get_description(tutorial, level),
-            'framework': services.get_framework(tutorial, level),
-            'input': services.get_input(tutorial, level)
-        }
-    json_response = JsonResponse(json_body)
-    services.set_response_headers(json_response)
     return json_response

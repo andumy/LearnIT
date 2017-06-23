@@ -3,10 +3,10 @@ import json
 import fileinput
 import time
 from django.http import JsonResponse
-from os import path
+from os import path, getcwd
 from shutil import copyfile
 
-STATIC_FOLDER = 'static/'
+STATIC_FOLDER = 'backend/LearnIT/static/'
 SRC_EXT = '.cpp'
 DESCRIPTION_EXT = '.description'
 SCH_EXT = '.sch'
