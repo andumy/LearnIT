@@ -1,9 +1,7 @@
-.idea*
-backend.LearnIt/.idea*
-backend/LearnIT/ENV/*
-frontend/LearnIT/node_modules/*
-backend/LearnIT/LearnIT/__pycache__/*
-backend/LearnIT/CoreApp/__pycache__/*
-backend/LearnIT/AuthApp/__pycache__/*
-LearnIT
-
+.idea
+backend.LearnIt/.idea
+backend/LearnIT/ENV/
+frontend/LearnIT/node_modules/
+backend/LearnIT/AuthApp/__pycache__/
+backend/LearnIT/CoreApp/__pycache__/
+backend/LearnIT/LearnIT/__pycache__/
