@@ -1,12 +1,12 @@
 from django.http import HttpResponse, JsonResponse, HttpRequest
 from django.views.decorators.csrf import csrf_exempt
-from django.contrib.auth import authenticate
+from django.contrib.auth import authenticate, login, logout
 from CoreApp import services
 import json
 
 
 @csrf_exempt
-def login(request: HttpRequest):
+def login_action(request: HttpRequest):
     if request.method != 'POST':
         json_response = JsonResponse(
             {
@@ -23,13 +23,19 @@ def login(request: HttpRequest):
     user = authenticate(username=username, password=password)
 
     if user is not None:
-        json_body = {'ok': 'POST'}
-        json_response = JsonResponse(json_body)
-        services.set_response_headers(json_response)
-        return json_response
+        return login(request, user)
 
     json_body = {'nok': 'GET'}
     json_response = JsonResponse(json_body)
     services.set_response_headers(json_response)
     return json_response
 
+
+@csrf_exempt
+def logout_action(request: HttpRequest):
+    logout(request)
+
+    json_body = {'ok': 'GET'}
+    json_response = JsonResponse(json_body)
+    services.set_response_headers(json_response)
+    return json_response
