@@ -2,7 +2,11 @@
   width: 23px;
   height: 23px;
 }
-
+.test {
+  background-image: url("skater-boy.png");
+  background-size: cover;
+  transition: any 2s ease-in;
+}
 .selected {
   background-image: url("skater-boy.png");
   background-size:cover;

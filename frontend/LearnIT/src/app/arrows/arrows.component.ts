@@ -21,8 +21,7 @@ export class ArrowsComponent implements OnInit {
     arrowListSec: Array<ArrowListClass> = [];   
     i:number = 0;
 
-    clicked(direction) {    
-        console.log(this.arrowList);
+    clicked(direction) {       
         this.arrowList.push({
             pos:this.i,
             dir:direction
@@ -38,8 +37,7 @@ export class ArrowsComponent implements OnInit {
         this.arrowListSec = this.arrowList;
         this.arrowList = [];
         this.arrowListSec.splice(id,1);
-        this.arrowList = this.arrowListSec;
-        console.log(this.arrowList);
+        this.arrowList = this.arrowListSec;        
         this.arrowListSec = [];
     }
 }
