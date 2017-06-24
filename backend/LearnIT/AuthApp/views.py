@@ -4,7 +4,6 @@ from django.contrib.auth import authenticate, login, logout
 from CoreApp import services
 import json
 
-
 @csrf_exempt
 def login_action(request: HttpRequest):
     if request.method != 'POST':
@@ -16,8 +15,10 @@ def login_action(request: HttpRequest):
         services.set_response_headers(json_response)
         return json_response
 
-    username = request.POST['username']
-    password = request.POST['password']
+    body_unicode = request.body.decode('utf-8')
+    body = json.loads(body_unicode)
+    username = body.get('username')
+    password = body.get('password')
     user = authenticate(username=username, password=password)
 
     if user is not None:

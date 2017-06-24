@@ -4,7 +4,6 @@ from . import services
 import json
 
 
-@csrf_exempt
 def index(request: HttpRequest):
     if request.method == 'POST':
         json_body = {'ok': 'POST'}
@@ -18,6 +17,7 @@ def index(request: HttpRequest):
     return json_response
 
 
+@csrf_exempt
 def tutorial_init(request: HttpRequest, tutorial: str, language: str, level: str):
     if not request.user.is_authenticated:
         json_body = {
@@ -50,7 +50,6 @@ def tutorial_init(request: HttpRequest, tutorial: str, language: str, level: str
     return json_response
 
 
-@csrf_exempt
 def run(request: HttpRequest, tutorial: str = '', level: str = ''):
     """
     Run the code and get the result
