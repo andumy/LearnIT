@@ -18,8 +18,15 @@ def index(request: HttpRequest):
     return json_response
 
 
-@csrf_exempt
 def tutorial_init(request: HttpRequest, tutorial: str, language: str, level: str):
+    if not request.user.is_authenticated:
+        json_body = {
+            'auth': False,
+        }
+        json_response = JsonResponse(json_body)
+        services.set_response_headers(json_response)
+        return json_response
+
     if services.check_tutorial_existence(tutorial, level) is False:
         json_body = {
             'error': True,
@@ -56,6 +63,14 @@ def run(request: HttpRequest, tutorial: str = '', level: str = ''):
     :return: json response for this route
     :rtype: JsonResponse
     """
+    if not request.user.is_authenticated:
+        json_body = {
+            'auth': False,
+        }
+        json_response = JsonResponse(json_body)
+        services.set_response_headers(json_response)
+        return json_response
+
     if request.method != 'POST':
         json_response = JsonResponse(
             {
@@ -125,3 +140,6 @@ def run(request: HttpRequest, tutorial: str = '', level: str = ''):
     services.set_response_headers(json_response)
 
     return json_response
+
+
+# def download(request: HttpRequest)
