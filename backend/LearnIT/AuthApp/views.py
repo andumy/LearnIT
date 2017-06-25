@@ -4,6 +4,7 @@ from django.contrib.auth import authenticate, login, logout
 from CoreApp import services
 import json
 
+
 @csrf_exempt
 def login_action(request: HttpRequest):
     if request.method != 'POST':

@@ -4,6 +4,7 @@ from . import services
 import json
 
 
+@csrf_exempt
 def index(request: HttpRequest):
     if request.method == 'POST':
         json_body = {'ok': 'POST'}
@@ -50,7 +51,8 @@ def tutorial_init(request: HttpRequest, tutorial: str, language: str, level: str
     return json_response
 
 
-def run(request: HttpRequest, tutorial: str = '', level: str = ''):
+@csrf_exempt
+def run(request: HttpRequest, tutorial: str = '', language: str = '', level: str = ''):
     """
     Run the code and get the result
     :param request: http request for this route

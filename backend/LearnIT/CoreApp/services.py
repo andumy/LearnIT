@@ -5,7 +5,7 @@ from django.http import JsonResponse
 from os import path
 from shutil import copyfile
 
-STATIC_FOLDER = '../static/'
+STATIC_FOLDER = 'static/'
 SRC_EXT = '.cpp'
 DESCRIPTION_EXT = '.description'
 SCH_EXT = '.sch'
