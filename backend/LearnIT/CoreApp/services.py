@@ -7,9 +7,9 @@ from shutil import copyfile
 
 STATIC_FOLDER = 'static/'
 SRC_EXT = '.cpp'
-DESCRIPTION_EXT = '.description'
-SCH_EXT = '.sch'
-INPUT_EXT = '.in'
+DESCRIPTION_EXT = 'description'
+SCH_EXT = 'snp'
+INPUT_EXT = 'in'
 CC = 'g++'
 CFLAG = '-Wall'
 PLACEHOLDER = '%@PLACEHOLDER@%'
@@ -92,21 +92,24 @@ def set_response_headers(json_response: JsonResponse):
     :type json_response: JsonResponse
     """
     json_response.__setitem__("Content-type", "application/json")
-    json_response.__setitem__("Access-Control-Allow-Origin", "*")
+    json_response.__setitem__("Access-Control-Allow-Origin", "http://82.118.226.25:8000")
+    json_response.__setitem__("Access-Control-Allow-Headers", "sessionId")
 
 
-def get_tutorial_file_name_path(tutorial_name: str, level: str, extension: str):
+def get_tutorial_file_name_path(tutorial_name: str, language: str, level: str, extension: str):
     """
     Get the path from the static folder
     :param tutorial_name: Name of the tutorial
     :type tutorial_name: str
+    :param language: Programming language extension of the file
+    :type language: str
     :param level: Level of the tutorial
     :type level: int
     :param extension: Extension of the file
     :type extension: str
     :rtype: str
     """
-    return STATIC_FOLDER + tutorial_name + '/' + tutorial_name + level + extension
+    return STATIC_FOLDER + tutorial_name + '/' + tutorial_name + level + '.' + language + '.' + extension
 
 
 def check_tutorial_existence(tutorial_name: str, level: str):
@@ -121,17 +124,19 @@ def check_tutorial_existence(tutorial_name: str, level: str):
     return path.isfile(get_tutorial_file_name_path(tutorial_name, level, DESCRIPTION_EXT))
 
 
-def get_description(tutorial_name: str, level: str):
+def get_description(tutorial_name: str, language: str, level: str):
     """
     Get the description for a certain tutorial at a certain level
     :param tutorial_name: Name of the tutorial
     :type tutorial_name: str
+    :param language: Programming language of the tutorial
+    :type language: str
     :param level: Level of the tutorial
     :type level: str
     :return description: Description of the tutorial
     :rtype description: str
     """
-    filename = get_tutorial_file_name_path(tutorial_name, level, DESCRIPTION_EXT)
+    filename = get_tutorial_file_name_path(tutorial_name, language, level, DESCRIPTION_EXT)
     file = open(filename, 'r')
     description = file.read()
     file.close()
@@ -139,17 +144,19 @@ def get_description(tutorial_name: str, level: str):
     return description
 
 
-def get_framework(tutorial_name: str, level: str):
+def get_code_snippet(tutorial_name: str, language: str, level: str):
     """
     Get the framework for a certain tutorial at a certain level
     :param tutorial_name: Name of the tutorial
     :type tutorial_name: str
+    :param language: Programming language of the tutorial
+    :type language: str
     :param level: Level of the tutorial
     :type level: str
     :return framework: Framework of the tutorial
     :rtype framework: str
     """
-    filename = get_tutorial_file_name_path(tutorial_name, level, SCH_EXT)
+    filename = get_tutorial_file_name_path(tutorial_name, language, level, SCH_EXT)
     if path.isfile(filename) is False:
         return ''
     file = open(filename, 'r')
@@ -159,17 +166,19 @@ def get_framework(tutorial_name: str, level: str):
     return framework
 
 
-def get_input(tutorial_name: str, level: str):
+def get_input(tutorial_name: str, language: str, level: str):
     """
     Get the input for a certain tutorial at a certain level
     :param tutorial_name: Name of the tutorial
     :type tutorial_name: str
+    :param language: Programming language of the tutorial
+    :type language: str
     :param level: Level of the tutorial
     :type level: str
     :return input_dict: Input of the tutorial
     :rtype input_dict: dict
     """
-    filename = get_tutorial_file_name_path(tutorial_name, level, INPUT_EXT)
+    filename = get_tutorial_file_name_path(tutorial_name, language, level, INPUT_EXT)
     if path.isfile(filename) is False:
         return {}
     file = open(filename, 'r')

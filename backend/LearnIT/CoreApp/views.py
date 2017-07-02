@@ -20,13 +20,13 @@ def index(request: HttpRequest):
 
 @csrf_exempt
 def tutorial_init(request: HttpRequest, tutorial: str, language: str, level: str):
-    if not request.user.is_authenticated:
-        json_body = {
-            'auth': False,
-        }
-        json_response = JsonResponse(json_body)
-        services.set_response_headers(json_response)
-        return json_response
+    # if not request.user.is_authenticated:
+    #     json_body = {
+    #         'auth': False,
+    #     }
+    #     json_response = JsonResponse(json_body)
+    #     services.set_response_headers(json_response)
+    #     return json_response
 
     if services.check_tutorial_existence(tutorial, level) is False:
         json_body = {
@@ -42,8 +42,8 @@ def tutorial_init(request: HttpRequest, tutorial: str, language: str, level: str
             'tutorial': tutorial,
             'language': language,
             'level': level,
-            'description': services.get_description(tutorial, level),
-            'snippet': services.get_framework(tutorial, level),
+            'description': services.get_description(tutorial, language, level),
+            'snippet': services.get_code_snippet(tutorial, level),
             'input': services.get_input(tutorial, level)
         }
     json_response = JsonResponse(json_body)
@@ -64,13 +64,13 @@ def run(request: HttpRequest, tutorial: str = '', language: str = '', level: str
     :return: json response for this route
     :rtype: JsonResponse
     """
-    if not request.user.is_authenticated:
-        json_body = {
-            'auth': False,
-        }
-        json_response = JsonResponse(json_body)
-        services.set_response_headers(json_response)
-        return json_response
+    # if not request.user.is_authenticated:
+    #     json_body = {
+    #         'auth': False,
+    #     }
+    #     json_response = JsonResponse(json_body)
+    #     services.set_response_headers(json_response)
+    #     return json_response
 
     if request.method != 'POST':
         json_response = JsonResponse(
