@@ -136,7 +136,7 @@ def get_description(tutorial_name: str, language: str, level: str):
     :return description: Description of the tutorial
     :rtype description: str
     """
-    filename = get_tutorial_file_name_path(tutorial_name, language, level, DESCRIPTION_EXT)
+    filename = get_tutorial_file_name_path(tutorial_name, DESCRIPTION_EXT, level, '')
     file = open(filename, 'r')
     description = file.read()
     file.close()
