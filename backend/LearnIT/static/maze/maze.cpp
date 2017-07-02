@@ -27,51 +27,51 @@ int maze[DIM][DIM] = {
 bool wasHere[DIM][DIM];
 vector<int> path;
 
-void moveUp() {
-    x--;
-    path.insert(path.begin(), UP);
-}
-
-void moveDown() {
-    x++;
-    path.insert(path.begin(), DOWN);
-}
-
-void moveRight() {
-    y++;
-    path.insert(path.begin(), RIGHT);
-}
-
-void moveLeft() {
-    y--;
-    path.insert(path.begin(), LEFT);
-}
-
-bool sequentiallySolve() {
-
-    moveRight();
-    moveDown();
-    moveDown();
-    moveRight();
-    moveRight();
-    moveRight();
-    moveRight();
-    moveDown();
-    moveDown();
-    moveLeft();
-    moveLeft();
-    moveDown();
-    moveDown();
-    moveRight();
-    moveRight();
-    moveRight();
-    moveRight();
-    moveUp();
-    moveRight();
-    moveRight();
-
-    return (maze[x][y] == EXIT);
-}
+//void moveUp() {
+//    x--;
+//    path.insert(path.begin(), UP);
+//}
+//
+//void moveDown() {
+//    x++;
+//    path.insert(path.begin(), DOWN);
+//}
+//
+//void moveRight() {
+//    y++;
+//    path.insert(path.begin(), RIGHT);
+//}
+//
+//void moveLeft() {
+//    y--;
+//    path.insert(path.begin(), LEFT);
+//}
+//
+//bool sequentiallySolve() {
+//
+//    moveRight();
+//    moveDown();
+//    moveDown();
+//    moveRight();
+//    moveRight();
+//    moveRight();
+//    moveRight();
+//    moveDown();
+//    moveDown();
+//    moveLeft();
+//    moveLeft();
+//    moveDown();
+//    moveDown();
+//    moveRight();
+//    moveRight();
+//    moveRight();
+//    moveRight();
+//    moveUp();
+//    moveRight();
+//    moveRight();
+//
+//    return (maze[x][y] == EXIT);
+//}
 
 bool backtrackingSolve(int x, int y) {
     if (maze[x][y] == EXIT) {

@@ -43,7 +43,7 @@ def tutorial_init(request: HttpRequest, tutorial: str, language: str, level: str
             'language': language,
             'level': level,
             'description': services.get_description(tutorial, level),
-            'framework': services.get_framework(tutorial, level),
+            'snippet': services.get_framework(tutorial, level),
             'input': services.get_input(tutorial, level)
         }
     json_response = JsonResponse(json_body)
@@ -86,6 +86,7 @@ def run(request: HttpRequest, tutorial: str = '', language: str = '', level: str
     body_unicode = request.body.decode('utf-8')
     body = json.loads(body_unicode)
     code = body.get('code')
+    print(code)
     if code is None:
         json_response = JsonResponse(
             {
@@ -132,7 +133,7 @@ def run(request: HttpRequest, tutorial: str = '', language: str = '', level: str
         json_body = {
             'internal': True,
             'error': True,
-            'internal_exception': e.__traceback__
+            'internal_exception': format(e)
         }
         pass
 
