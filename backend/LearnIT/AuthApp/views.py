@@ -24,7 +24,10 @@ def login_action(request: HttpRequest):
 
     if user is not None:
         login(request, user)
-        json_body = {'auth': True}
+        json_body = {
+            'auth': True,
+            'sessionId': request.session.session_key
+        }
     else:
         json_body = {'auth': False}
 
