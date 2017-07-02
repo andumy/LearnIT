@@ -8,8 +8,8 @@ from shutil import copyfile
 STATIC_FOLDER = 'static/'
 SRC_EXT = '.cpp'
 DESCRIPTION_EXT = 'description'
-SCH_EXT = 'snp'
-INPUT_EXT = 'in'
+SCH_EXT = '.snp'
+INPUT_EXT = '.in'
 CC = 'g++'
 CFLAG = '-Wall'
 PLACEHOLDER = '%@PLACEHOLDER@%'
@@ -109,7 +109,7 @@ def get_tutorial_file_name_path(tutorial_name: str, language: str, level: str, e
     :type extension: str
     :rtype: str
     """
-    return STATIC_FOLDER + tutorial_name + '/' + tutorial_name + level + '.' + language + '.' + extension
+    return STATIC_FOLDER + tutorial_name + '/' + tutorial_name + level + '.' + language + extension
 
 
 def check_tutorial_existence(tutorial_name: str, level: str):
@@ -121,7 +121,7 @@ def check_tutorial_existence(tutorial_name: str, level: str):
     :type level: str
     :rtype: bool
         """
-    return path.isfile(get_tutorial_file_name_path(tutorial_name, level, DESCRIPTION_EXT))
+    return path.isfile(get_tutorial_file_name_path(tutorial_name, DESCRIPTION_EXT, level, ''))
 
 
 def get_description(tutorial_name: str, language: str, level: str):
