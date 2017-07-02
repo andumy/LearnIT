@@ -9,7 +9,7 @@ STATIC_FOLDER = 'static/'
 SRC_EXT = '.cpp'
 DESCRIPTION_EXT = 'description'
 SCH_EXT = '.snp'
-INPUT_EXT = '.in'
+INPUT_EXT = 'in'
 CC = 'g++'
 CFLAG = '-Wall'
 PLACEHOLDER = '%@PLACEHOLDER@%'
@@ -178,7 +178,7 @@ def get_input(tutorial_name: str, language: str, level: str):
     :return input_dict: Input of the tutorial
     :rtype input_dict: dict
     """
-    filename = get_tutorial_file_name_path(tutorial_name, language, level, INPUT_EXT)
+    filename = get_tutorial_file_name_path(tutorial_name, INPUT_EXT, level, '')
     if path.isfile(filename) is False:
         return {}
     file = open(filename, 'r')

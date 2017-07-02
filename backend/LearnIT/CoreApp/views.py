@@ -86,7 +86,6 @@ def run(request: HttpRequest, tutorial: str = '', language: str = '', level: str
     body_unicode = request.body.decode('utf-8')
     body = json.loads(body_unicode)
     code = body.get('code')
-    print(code)
     if code is None:
         json_response = JsonResponse(
             {
