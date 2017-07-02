@@ -2,13 +2,14 @@ import subprocess
 import json
 import fileinput
 from django.http import JsonResponse
-from os import path
+from os import path, getcwd
 from shutil import copyfile
 
-STATIC_FOLDER = 'static/'
+STATIC_FOLDER = 'backend/LearnIT/static/'
+FRAMEWORK_EXTENSION = '.fwk'
 SRC_EXT = '.cpp'
 DESCRIPTION_EXT = 'description'
-SCH_EXT = '.snp'
+CODE_SNIPPET_EXTENSION = '.snp'
 INPUT_EXT = 'in'
 CC = 'g++'
 CFLAG = '-Wall'
@@ -22,7 +23,7 @@ def get_file_full_path(filename: str):
     :return: Full path and name to file on server
     :rtype: str
     """
-    return STATIC_FOLDER + filename + SRC_EXT
+    return STATIC_FOLDER + filename
 
 
 def get_exec_full_path(filename: str):
@@ -121,7 +122,9 @@ def check_tutorial_existence(tutorial_name: str, level: str):
     :type level: str
     :rtype: bool
         """
-    return path.isfile(get_tutorial_file_name_path(tutorial_name, DESCRIPTION_EXT, level, ''))
+    tutorial_path = get_tutorial_file_name_path(tutorial_name, DESCRIPTION_EXT, level, '')
+    cwd = getcwd()
+    return path.isfile(tutorial_path)
 
 
 def get_description(tutorial_name: str, language: str, level: str):
@@ -156,7 +159,7 @@ def get_code_snippet(tutorial_name: str, language: str, level: str):
     :return framework: Framework of the tutorial
     :rtype framework: str
     """
-    filename = get_tutorial_file_name_path(tutorial_name, language, level, SCH_EXT)
+    filename = get_tutorial_file_name_path(tutorial_name, language, level, CODE_SNIPPET_EXTENSION)
     if path.isfile(filename) is False:
         return ''
     file = open(filename, 'r')
@@ -189,9 +192,9 @@ def get_input(tutorial_name: str, language: str, level: str):
     return input_dict
 
 
-def replace_placeholder(tutorial_name: str, level: str, content: str):
-    src_filename = get_tutorial_file_name_path(tutorial_name, level, SRC_EXT)
-    dst_filename = get_file_full_path(tutorial_name + level)
+def replace_placeholder(tutorial_name: str, language: str, level: str, content: str):
+    src_filename = get_tutorial_file_name_path(tutorial_name, language, level, FRAMEWORK_EXTENSION)
+    dst_filename = get_file_full_path(tutorial_name + level + '.' + language)
     copyfile(src_filename, dst_filename)
 
     with fileinput.FileInput(dst_filename, inplace=True, backup='.bak') as file_it:

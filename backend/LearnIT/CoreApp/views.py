@@ -98,11 +98,11 @@ def run(request: HttpRequest, tutorial: str = '', language: str = '', level: str
         return json_response
 
     if tutorial == '' or level == '':
-        filename = 'main'
+        filename = 'main.' + language
         services.write_file(filename, code)
     else:
-        filename = tutorial + level
-        services.replace_placeholder(tutorial, level, code)
+        filename = tutorial + level + '.' + language
+        services.replace_placeholder(tutorial, language, level, code)
 
     try:
         output_c, error_c = services.compile_file(filename)

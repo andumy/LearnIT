@@ -1,0 +1,33 @@
+#include <iostream>
+#include <vector>
+
+using namespace std;
+
+vector<int> path;
+
+void sortVector(int V[10]) {
+    // TODO insert your code here
+}
+
+bool isSorted(int V[10]) {
+    for (int i = 1; i < 10; i++) {
+        if (V[i-1] > V[i]) {
+            return false;
+        }
+    }
+
+    return true;
+}
+
+int main() {
+    int V[DIM] = {1, 7, 2, 6, 3, 8, 0, 4, 5, 9};
+    sortVector(V);
+
+    for (int i = 0; i < DIM; i++) {
+        cout << V[i] << ' ';
+    }
+
+    bool sort = isSorted(V);
+
+    return sort ? 0 : 1;
+}
