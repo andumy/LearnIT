@@ -43,8 +43,8 @@ def tutorial_init(request: HttpRequest, tutorial: str, language: str, level: str
             'language': language,
             'level': level,
             'description': services.get_description(tutorial, language, level),
-            'snippet': services.get_code_snippet(tutorial, level),
-            'input': services.get_input(tutorial, level)
+            'snippet': services.get_code_snippet(tutorial, language, level),
+            'input': services.get_input(tutorial, language, level)
         }
     json_response = JsonResponse(json_body)
     services.set_response_headers(json_response)
