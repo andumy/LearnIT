@@ -1,0 +1,87 @@
+
+import java.util.Vector;
+
+public class maze2 {
+
+    private static final int DIM = 10;
+    private static final int WALL = 1;
+    private static final int ENTER = 2;
+    private static final int EXIT = 3;
+    private static final int UP = 1;
+    private static final int RIGHT = 2;
+    private static final int DOWN = 3;
+    private static final int LEFT = 4;
+
+    private static final int[][] maze = {
+            {1, 1, 1, 0, 1, 1, 1, 1, 1, 1},
+            {2, 0, 0, 0, 0, 0, 0, 0, 1, 1},
+            {1, 0, 1, 1, 1, 1, 1, 0, 0, 1},
+            {1, 0, 0, 0, 0, 0, 1, 1, 1, 1},
+            {1, 0, 1, 1, 1, 0, 1, 1, 1, 1},
+            {1, 0, 1, 0, 0, 0, 0, 0, 1, 1},
+            {1, 0, 1, 0, 1, 1, 1, 0, 0, 3},
+            {1, 1, 1, 0, 0, 0, 0, 0, 0, 1},
+            {1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
+            {1, 1, 1, 1, 1, 1, 1, 1, 1, 1}
+    };
+
+    private static int x = 1;
+    private static int y = 0;
+    private static boolean wasHere[][] = {
+            {false, false, false, false, false, false, false, false, false, false},
+            {false, false, false, false, false, false, false, false, false, false},
+            {false, false, false, false, false, false, false, false, false, false},
+            {false, false, false, false, false, false, false, false, false, false},
+            {false, false, false, false, false, false, false, false, false, false},
+            {false, false, false, false, false, false, false, false, false, false},
+            {false, false, false, false, false, false, false, false, false, false},
+            {false, false, false, false, false, false, false, false, false, false},
+            {false, false, false, false, false, false, false, false, false, false},
+            {false, false, false, false, false, false, false, false, false, false}
+    };
+    private static Vector<Integer> path = new Vector<Integer>();
+
+    private static void moveUp() {
+        x--;
+        path.add(UP);
+    }
+
+    private static void moveDown() {
+        x++;
+        path.add(DOWN);
+    }
+
+    private static void moveRight() {
+        y++;
+        path.add(RIGHT);
+    }
+
+    private static void moveLeft() {
+        y--;
+        path.add(LEFT);
+    }
+
+    private static boolean sequentiallySolve() {
+
+        %@PLACEHOLDER@%
+
+        return (maze[x][y] == EXIT);
+    }
+
+
+
+    public static void main(String[] args) {
+        int i;
+
+        boolean solved = maze2.sequentiallySolve();
+
+        for (i = 0; i < maze2.path.size(); i++) {
+            System.out.print(maze2.path.get(i));
+            if (i != maze2.path.size() - 1) {
+                System.out.print(' ');
+            }
+        }
+
+        System.exit(solved ? 0 : 1);
+    }
+}
